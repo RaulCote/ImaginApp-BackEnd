@@ -31,7 +31,9 @@ router.post('/', (req, res, next) => {
     // owner,
     title: req.body.title,
     message: req.body.message,
-    private: true
+    tag: req.body.tag,
+    owner: req.body.owner,
+    visible: req.body.visible,
   });
 
   
