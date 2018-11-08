@@ -11,7 +11,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const auth = require('./routes/auth');
-const auth = require('./routes/speech');
+const speech = require('./routes/speech');
 
 mongoose.connect(process.env.MONGODB_URI, {
   keepAlive: true,
