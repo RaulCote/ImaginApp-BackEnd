@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
     message: req.body.message,
     tag: req.body.tag,
     owner: req.body.owner,
-    visible: req.body.visible,
+    isPublic: req.body.visible,
   });
 
   

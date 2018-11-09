@@ -60,17 +60,17 @@ Web Application to record (voice) or write your speeches and explore other's spe
 
 ## Pages
 
-- Home Page  (Shows Sign In / Log In options)
-- Sign up Page 
-- Log in Page 
+- Home Page  (Shows Sign In / Log In options)   Created.
+- Sign up Page                                  Created.
+- Log in Page                                   Created.
 
-- Search Speeches Page
+- Search Speeches Page                          Created.
 - Detail Page
 
-- My Profile Page (with Edit Options)
-- Own Speeches List Page 
-- Speeches Create 
-- Edit own Speeches Page (Detail too)
+- My Profile Page (with Edit Options)           
+- Own Speeches List Page                        Created.
+- Speeches Create                               Created.
+- Edit own Speeches Page (Detail too)<>
 
 - Favourite List Page (Redirects for detail to : Detail Page)
 - 404 Page 
