@@ -65,4 +65,39 @@ router.post('/', (req, res, next) => {
 
 });
 
+router.put('/:id', (req,res,next) => {
+  const id = req.params.id;
+  let addTag = []
+  addTag.push(req.params.tag);
+
+  const updateSpeech = {
+    title: req.body.title,
+    message: req.body.message,
+    tag: addTag,
+    isPublic: req.body.isPublic,
+  }
+
+  Speech.findByIdAndUpdate(id, updateSpeech, (err) => {
+    if (err){
+      next(err);
+    }else{
+        res.status(200).json({message: 'Updated'});
+    }
+  })
+})
+
+router.get('/:id', (req, res, next) => {
+   const id = req.params.id;
+ 
+
+  Speech.findById(id, (err, speech) => {
+    if (err) {
+      next(err);
+    } else {
+      res.status(200).json(speech)
+    }
+  });
+    
+});
+
 module.exports = router;
