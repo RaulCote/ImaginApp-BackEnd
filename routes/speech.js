@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
     message: req.body.message,
     tag: req.body.tag,
     owner: req.body.owner,
-    isPublic: req.body.visible,
+    is_Public: req.body.is_Public,
   });
 
   
@@ -67,14 +67,15 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req,res,next) => {
   const id = req.params.id;
-  let addTag = []
-  addTag.push(req.params.tag);
+
+  // let addTag = []
+  // addTag.push(req.body.tag);
 
   const updateSpeech = {
     title: req.body.title,
     message: req.body.message,
-    tag: addTag,
-    isPublic: req.body.isPublic,
+    tag: req.body.tag,
+    is_Public: req.body.is_Public,
   }
 
   Speech.findByIdAndUpdate(id, updateSpeech, (err) => {
