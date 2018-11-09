@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
   });
 
   
-
+//
   // let tagsplit = req.body.tag.split('');
   // tagsplit.map(tag => {
   //   return  newSpeech.tag.push(tag);
