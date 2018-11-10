@@ -70,6 +70,7 @@ router.put('/:id', (req,res,next) => {
 
   // let addTag = []
   // addTag.push(req.body.tag);
+  console.log(req.body.tag);
 
   const updateSpeech = {
     title: req.body.title,
