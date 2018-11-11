@@ -85,11 +85,9 @@ router.delete('/:id', (req, res, next) => {
 
   Speech.findByIdAndDelete(id, (err) => {
     if (err){
-      console.log('error delete no llega al 200')
       next(err);
     }else{
-      console.log('llega al 200')
-        res.status(200).json({message: 'Deleted.'});
+        res.status(204);
     }
   })
 })
