@@ -10,7 +10,6 @@ const ObjectId = mongoose.Types.ObjectId;
 
 router.get('/:id', (req, res, next) => {
    const id = req.params.id;
- 
 
   Speech.findById(id, (err, speech) => {
     if (err) {
@@ -18,26 +17,12 @@ router.get('/:id', (req, res, next) => {
     } else {
       res.status(200).json(speech)
     }
-  });
-    
+  });   
 });
-
-// router.get('/profile/myspeeches', (req, res, next) => {
-  
-//   Speech.find({}, (err, speechList) => {
-//     if (err) {
-//       next(err);
-//     } else {
-//       res.status(200).json(speechList)
-//     }
-//   });
-// });
 
 
 router.get('/', (req, res, next) => {
 console.log(req.query);
-  
- 
   
   Speech.find(req.query, (err, speechList) => {
     if (err) {
@@ -46,24 +31,6 @@ console.log(req.query);
       res.status(200).json(speechList)
     }
   });
-
-  // Speech.find({is_Public: true}, (err, speechList) => {
-  //   if (err) {
-  //     next(err);
-  //   } else {
-  //     res.status(200).json(speechList)
-  //   }
-  // });
-
-
-  // Speech.find({}, (err, speechList) => {
-  //   if (err) {
-  //     next(err);
-  //   } else {
-  //     res.status(200).json(speechList)
-  //   }
-  // });
-    
 });
 
 router.post('/', (req, res, next) => {
@@ -82,18 +49,6 @@ router.post('/', (req, res, next) => {
     is_Public: req.body.is_Public,
   });
 
-  
-//
-  // let tagsplit = req.body.tag.split('');
-  // tagsplit.map(tag => {
-  //   return  newSpeech.tag.push(tag);
-  // })
-  
-// title: String,
-//   message: String,
-//   tag: [{type: String}],
-//   private: Boolean,
-  
   newSpeech.save((err) => {
     if(err){
         next(err);
@@ -101,14 +56,6 @@ router.post('/', (req, res, next) => {
       res.status(200).json({ newSpeech });
     }
   })
-    // .then((createdSpeech) => {
-    //   console.log(' error al introducir');
-    //   res.status(200).json({speech});
-    // })
-    // .catch((error) => {
-    //   console.log(' error de add');
-    // });
-
 });
 
 router.put('/:id', (req,res,next) => {
@@ -133,5 +80,18 @@ router.put('/:id', (req,res,next) => {
   })
 })
 
+router.delete('/:id', (req, res, next) => {
+  const id = req.params.id;
+
+  Speech.findByIdAndDelete(id, (err) => {
+    if (err){
+      console.log('error delete no llega al 200')
+      next(err);
+    }else{
+      console.log('llega al 200')
+        res.status(200).json({message: 'Deleted.'});
+    }
+  })
+})
 
 module.exports = router;
