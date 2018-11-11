@@ -65,12 +65,12 @@ Web Application to record (voice) or write your speeches and explore other's spe
 - Log in Page                                   Created.
 
 - Search Speeches Page                          Created.
-- Detail Page
+- Detail Page                                   Doing.
 
-- My Profile Page (with Edit Options)           
+- My Profile Page (with Edit Options)           Doing.
 - Own Speeches List Page                        Created.
 - Speeches Create                               Created.
-- Edit own Speeches Page (Detail too)<>
+- Edit own Speeches Page (Detail too)           Doing.
 
 - Favourite List Page (Redirects for detail to : Detail Page)
 - 404 Page 
@@ -152,9 +152,12 @@ private - Boolean
 - DELETE /speeches/:id              Eliminar speech.
 - POST /speeches/:id/favourites     Añade a favoritos.
 
-<!-- **Profile** (User)
+**Profile**
 - GET  /profile       Nuestro perfil.
 - PUT  /profile       Edita perfil.
+
+
+<!-- **Profile** (User)
 - GET  /profile/me/speeches/        Listar nuestros speeches.
 - POST /profile/me/speeches/        Crear speech.
 - GET  /profile/me/speeches/:id     Detalle de un speech nuestro.

@@ -12,6 +12,7 @@ require('dotenv').config();
 
 const auth = require('./routes/auth');
 const speech = require('./routes/speech');
+const profile = require('./routes/profile');
 
 mongoose.connect(process.env.MONGODB_URI, {
   keepAlive: true,
@@ -59,6 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', auth);
 app.use('/speeches', speech);
+app.use('/profile', profile);
 
 
 
