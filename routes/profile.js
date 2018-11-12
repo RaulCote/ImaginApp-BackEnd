@@ -8,8 +8,9 @@ const { isLoggedIn } = require('../helpers/middlewares');
 
 const ObjectId = mongoose.Types.ObjectId;
 
-// router.get('/:id', (req, res, next) => {
-//   const id = req.params.id;
+router.get('/:id', (req, res, next) => {
+  const id = req.params.id;
+  console.log(typeof id);
 
 //   User.find(ObjectId(id), (err, user) => {
 //     if (err) {
@@ -18,7 +19,17 @@ const ObjectId = mongoose.Types.ObjectId;
 //       res.status(200).json(user)
 //     }
 //   }) 
-// })
+User.find(id)
+  .then((result) => {
+    if(!result){
+      console.log('devuelve caca');
+    }
+    console.log(result);
+  })
+  .catch((error) => {
+    console.log('errererererere');
+  })
+})
 
 router.put('/:id', (req, res, next) => {
   //console.log('supuesto id ', req.body)
