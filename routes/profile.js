@@ -8,17 +8,18 @@ const { isLoggedIn } = require('../helpers/middlewares');
 
 const ObjectId = mongoose.Types.ObjectId;
 
-// router.get('/:id', (req, res, next) => {
-//   const id = req.params.id;
-
-//   User.find(ObjectId(id), (err, user) => {
-//     if (err) {
-//       next(err);
-//     } else {
-//       res.status(200).json(user)
-//     }
-//   }) 
-// })
+router.get('/', (req, res, next) => {
+  const id = req.session.currentUser._id;
+  User.findById(id)
+   .then((user) => {
+     res.status(200).json(user)
+     console.log(user)
+    })
+   .catch((error) => {
+     console.log('user get ', error)
+     next(error)
+   })
+})
 
 router.put('/', (req, res, next) => {
   //console.log('supuesto id ', req.body)
