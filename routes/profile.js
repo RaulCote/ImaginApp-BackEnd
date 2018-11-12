@@ -20,25 +20,28 @@ const ObjectId = mongoose.Types.ObjectId;
 //   }) 
 // })
 
-router.put('/:id', (req, res, next) => {
+router.put('/', (req, res, next) => {
   //console.log('supuesto id ', req.body)
   const user = req.body;
-  const id = req.params.id;
+  const id = req.session.currentUser._id;
   console.log('id backend put', id)
 
   const updateUser = {
     username: req.body.username,
     email: req.body.email,
     picture: req.body.picture,
+    _id: id,
   }
   
-  User.findByIdAndUpdate(id, updateUser, (err) => {
-    if (err) {
-      next(err);
-    } else {
+  User.findByIdAndUpdate(id, updateUser)
+    .then(() => {
+      console.log(updateUser)
       res.status(200).json(updateUser)
-    }
-  })
+    })
+    .catch((error) => {
+      console.log(error)
+      next(error)
+    })
 })
 
 module.exports = router;
