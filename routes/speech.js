@@ -49,9 +49,15 @@ router.post('/', (req, res, next) => {
     is_Public: req.body.is_Public,
   });
 
+  if ( !newSpeech.title || !newSpeech.message || !newSpeech.tag[0] || !newSpeech.is_Public) {
+      return res.status(422).json({
+      error: 'Fields cannot be empty'
+    })
+  }
+
   newSpeech.save((err) => {
     if(err){
-        next(err);
+      next(err);
     }else{
       res.status(200).json({ newSpeech });
     }
@@ -70,6 +76,12 @@ router.put('/:id', (req,res,next) => {
     tag: req.body.tag,
     is_Public: req.body.is_Public,
   }
+
+  if ( !updateSpeech.title || !updateSpeech.message || !updateSpeech.tag[0] || !updateSpeech.is_Public) {
+    return res.status(422).json({
+    error: 'Fields cannot be empty'
+  })
+}
 
   Speech.findByIdAndUpdate(id, updateSpeech, (err) => {
     if (err){

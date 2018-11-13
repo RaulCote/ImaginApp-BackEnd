@@ -33,10 +33,15 @@ router.put('/', (req, res, next) => {
     picture: req.body.picture,
     _id: id,
   }
+
+  if ( !updateUser.username || !updateUser.email || !updateUser.picture) {
+    return res.status(422).json({
+    error: 'Fields cannot be empty'
+  })
+}
   
   User.findByIdAndUpdate(id, updateUser)
     .then(() => {
-      console.log(updateUser)
       res.status(200).json(updateUser)
     })
     .catch((error) => {
