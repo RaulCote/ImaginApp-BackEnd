@@ -10,14 +10,51 @@ const ObjectId = mongoose.Types.ObjectId;
 
 router.get('/:id', (req, res, next) => {
    const id = req.params.id;
+   const user = req.session.currentUser._id;
 
-  Speech.findById(id, (err, speech) => {
-    if (err) {
-      next(err);
-    } else {
-      res.status(200).json(speech)
+   if (!ObjectId.isValid(id)) {
+    return res.status(404).json({
+      error: 'user not found'  
+    });
+  }
+
+  if (user.match(/^[0-9a-fA-F]{24}$/)) {
+
+    Speech.findById(id)
+     .then((result) => {
+        if (!result){
+          return res.status(404).json({
+            error: 'user not found'  
+          })
+        }
+          return res.status(200).json(result)
+      })
+      .catch((error) => {
+        return res.status(404).json({
+        error: 'user not found'
+        })
+      })
+
     }
-  });   
+
+
+  // if (user.match(/^[0-9a-fA-F]{24}$/)) {
+
+  //   Speech.findById(id, (err, speech) => {
+  //     if (err) {
+  //       next(err);
+  //     } else {
+  //       res.status(200).json(speech)
+  //     }
+  //   });   
+  //  } else {
+  //   return res.status(404).json({
+  //     error: 'User not found'  
+  //   });
+  //  }
+
+   
+   
 });
 
 
