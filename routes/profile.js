@@ -50,4 +50,29 @@ router.put('/', (req, res, next) => {
     })
 })
 
+router.get('/favourites', (req, res, next) => {
+  const id = req.session.currentUser._id;
+  User.findById(id)
+    .populate('favourites')
+      .then((favourites) => {
+        res.status(200).json(favourites)
+      })
+      .catch((error) => {
+        next(error)
+      })
+})
+
+router.post('/favourites/:id', (req, res, next) => {
+  const userId = req.session.currentUser._id;
+  const speechDeleteId = req.params.id;
+  
+  User.findByIdAndUpdate(userId, {$pull: { favourites: speechDeleteId }}, {new: true})
+    .then((result) => {
+      res.status(200).json(result)
+    })
+    .catch((error) => {
+      next(error)
+    })
+})
+
 module.exports = router;
