@@ -68,7 +68,7 @@ router.post('/favourites/:id', (req, res, next) => {
   
   User.findByIdAndUpdate(userId, {$pull: { favourites: speechDeleteId }}, {new: true})
     .then((result) => {
-      res.status(200).json(result)
+      res.status(200).json({message: 'Favourite Add successfully'})
     })
     .catch((error) => {
       next(error)

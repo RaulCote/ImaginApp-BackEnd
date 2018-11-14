@@ -80,7 +80,7 @@ router.post('/', (req, res, next) => {
     is_Public: req.body.is_Public,
   });
 
-  if ( !newSpeech.title || !newSpeech.message || !newSpeech.tag[0] || !newSpeech.is_Public) {
+  if ( !newSpeech.title || !newSpeech.message || !newSpeech.tag[0]) {
       return res.status(422).json({
       error: 'Fields cannot be empty'
     })
@@ -108,7 +108,7 @@ router.put('/:id', (req,res,next) => {
     is_Public: req.body.is_Public,
   }
 
-  if ( !updateSpeech.title || !updateSpeech.message || !updateSpeech.tag[0] || !updateSpeech.is_Public) {
+  if ( !updateSpeech.title || !updateSpeech.message || !updateSpeech.tag[0]) {
     return res.status(422).json({
     error: 'Fields cannot be empty'
   })
@@ -126,11 +126,11 @@ router.put('/:id', (req,res,next) => {
 router.delete('/:id', (req, res, next) => {
   const id = req.params.id;
 
-  Speech.findByIdAndDelete(id, (err) => {
+  Speech.findByIdAndDelete(id, (err, result) => {
     if (err){
       next(err);
     }else{
-        res.status(204);
+        res.status(200).json(result);
     }
   })
 })
@@ -139,7 +139,6 @@ router.delete('/:id', (req, res, next) => {
 router.post('/:id', (req, res, next) => {
   const userId = req.session.currentUser._id
   const speechId = req.params.id;
-  console.log(userId, 'soy el userId')
   User.findById(userId)
     .then((user) => {
       const favourite = user.favourites.find((element) => {
@@ -149,7 +148,7 @@ router.post('/:id', (req, res, next) => {
         user.favourites.push(ObjectId(speechId))
         user.save()
         .then(() => {
-          console.log('saved to favs')
+          res.status(204);
         })
         .catch(next)
       } 
