@@ -34,14 +34,8 @@ console.log(req.query);
 });
 
 router.post('/', (req, res, next) => {
-  // const userId = req.session.currentUser._id;
 
-  // console.log('entra');
-  // console.log(req.query);
-
-  // const owner = ObjectId("5be42047b88f1e220904717a");
   const newSpeech = new Speech({
-    // owner,
     title: req.body.title,
     message: req.body.message,
     tag: req.body.tag,
@@ -103,5 +97,31 @@ router.delete('/:id', (req, res, next) => {
     }
   })
 })
+
+// Push favourites.
+router.post('/:id', (req, res, next) => {
+  const userId = req.session.currentUser._id
+  const speechId = req.params.id;
+  console.log(userId, 'soy el userId')
+  User.findById(userId)
+    .then((user) => {
+      const favourite = user.favourites.find((element) => {
+        return element === speechId
+      })
+      if (favourite === undefined) {
+        user.favourites.push(ObjectId(speechId))
+        user.save()
+        .then(() => {
+          console.log('saved to favs')
+        })
+        .catch(next)
+      } 
+    })
+    .catch(() => {
+      res.status(422).json({
+        error: 'Favourites didnt work'
+      })
+    })
+  })
 
 module.exports = router;
