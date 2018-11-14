@@ -142,16 +142,22 @@ router.post('/:id', (req, res, next) => {
   User.findById(userId)
     .then((user) => {
       const favourite = user.favourites.find((element) => {
-        return element === speechId
+        console.log(element, 'elemento de find')
+        console.log(speechId, 'speech de find ')    
+        if  (element == speechId)
+          return true
       })
+      console.log(favourite,'Favorito back')
       if (favourite === undefined) {
         user.favourites.push(ObjectId(speechId))
         user.save()
-        .then(() => {
-          res.status(204);
+        .then((result) => {
+          res.status(200).json(result);
         })
         .catch(next)
-      } 
+      } else{
+        res.status(422).json({error: 'already add to favourites'})
+      }
     })
     .catch(() => {
       res.status(422).json({

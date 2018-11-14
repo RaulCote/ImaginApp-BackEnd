@@ -13,10 +13,10 @@ router.get('/', (req, res, next) => {
   User.findById(id)
    .then((user) => {
      res.status(200).json(user)
-     console.log(user)
+    //  console.log(user)
     })
    .catch((error) => {
-     console.log('user get ', error)
+    //  console.log('user get ', error)
      next(error)
    })
 })
@@ -25,7 +25,7 @@ router.put('/', (req, res, next) => {
   //console.log('supuesto id ', req.body)
   const user = req.body;
   const id = req.session.currentUser._id;
-  console.log('id backend put', id)
+  // console.log('id backend put', id)
 
   const updateUser = {
     username: req.body.username,
@@ -62,13 +62,14 @@ router.get('/favourites', (req, res, next) => {
       })
 })
 
+// Delete Favourites
 router.post('/favourites/:id', (req, res, next) => {
   const userId = req.session.currentUser._id;
   const speechDeleteId = req.params.id;
   
   User.findByIdAndUpdate(userId, {$pull: { favourites: speechDeleteId }}, {new: true})
     .then((result) => {
-      res.status(200).json({message: 'Favourite Add successfully'})
+      res.status(200).json({message: 'Favourite Deleted successfully'})
     })
     .catch((error) => {
       next(error)
