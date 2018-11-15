@@ -3,8 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const Speech = require('../models/speech');
-const session = require('express-session');
-const { isLoggedIn } = require('../helpers/middlewares');
+
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -35,31 +34,11 @@ router.get('/:id', (req, res, next) => {
         })
       })
 
-    }
-
-
-  // if (user.match(/^[0-9a-fA-F]{24}$/)) {
-
-  //   Speech.findById(id, (err, speech) => {
-  //     if (err) {
-  //       next(err);
-  //     } else {
-  //       res.status(200).json(speech)
-  //     }
-  //   });   
-  //  } else {
-  //   return res.status(404).json({
-  //     error: 'User not found'  
-  //   });
-  //  }
-
-   
-   
+    } 
 });
 
 
 router.get('/', (req, res, next) => {
-console.log(req.query);
   
   Speech.find(req.query, (err, speechList) => {
     if (err) {
@@ -86,7 +65,6 @@ router.post('/', (req, res, next) => {
       error: 'Fields cannot be empty'
     })
   }
-
   newSpeech.save((err) => {
     if(err){
       next(err);
@@ -135,20 +113,16 @@ router.delete('/:id', (req, res, next) => {
     }
   })
 })
-
 // Push favourites.
 router.post('/:id', (req, res, next) => {
   const userId = req.session.currentUser._id
   const speechId = req.params.id;
   User.findById(userId)
     .then((user) => {
-      const favourite = user.favourites.find((element) => {
-        console.log(element, 'elemento de find')
-        console.log(speechId, 'speech de find ')    
+      const favourite = user.favourites.find((element) => {  
         if  (element == speechId)
           return true
       })
-      console.log(favourite,'Favorito back')
       if (favourite === undefined) {
         user.favourites.push(ObjectId(speechId))
         user.save()
