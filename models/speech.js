@@ -8,6 +8,7 @@ const speechSchema = new Schema({
   message: String,
   tag: [{type: String}],
   is_Public: Boolean,
+  language: String,
   },{
     timestamps: {
       createdAt: 'created_at',

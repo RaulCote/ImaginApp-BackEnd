@@ -78,6 +78,7 @@ router.post('/', (req, res, next) => {
     tag: req.body.tag,
     owner: req.body.owner,
     is_Public: req.body.is_Public,
+    language: req.body.language
   });
 
   if ( !newSpeech.title || !newSpeech.message || !newSpeech.tag[0]) {
